@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Accueil  }}
+{% endblock %}
+
+{% block body %}
+
+  <h2>Liste des annonces</h2>
+
+    <ul class="pagination">
+    {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+    {% for p in range(1, nbPages) %}
+      <li{% if p == page %} class="active"{% endif %}>
+        <a href="{{ path('advert_index', {'page': p}) }}">{{ p }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <ul>
+    {% for advert in listAdverts %}
+      <li>
+        <a href="{{ path('advert_view', {'id': advert.id}) }}">
+          {{ advert.title }}
+        </a>
+        par {{ advert.author }},
+        le {{ advert.date|date('d/m/Y') }}
+      </li>
+    {% else %}
+      <li>Pas (encore !) d'annonces</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
